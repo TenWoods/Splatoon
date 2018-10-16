@@ -19,7 +19,7 @@ public class TestClick : MonoBehaviour
                     Splat s = hitInfo.collider.GetComponent<Splat>();
                     if (s != null)
                     {
-                        Debug.Log(hitInfo.textureCoord);
+                        //Debug.Log(hitInfo.textureCoord);
                         s.SplatInk(hitInfo.textureCoord, splatTexture);
                     }
                 }

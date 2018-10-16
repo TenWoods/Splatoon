@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Splat : MonoBehaviour 
 {
@@ -13,10 +14,12 @@ public class Splat : MonoBehaviour
 	private bool isEnable = false;
 	//纹理宽度与高度
 	[SerializeField]
-	private int textureWidth = 64;
+	private int textureWidth = 256;
 	[SerializeField]
-	private int textureHeight = 64;
+	private int textureHeight = 256;
 	private readonly Color init_color = new Color(0, 0, 0, 0);
+
+	public RawImage testi;
 
 	/// <summary>
 	/// 初始化墨水层的纹理,检测是否可用
@@ -49,13 +52,14 @@ public class Splat : MonoBehaviour
 			_inkTexture.Apply();
 			//设置shader里的墨水层纹理
 			_material.SetTexture("_InkTex", _inkTexture);
+			testi.texture = _inkTexture;
 			isEnable = true;
 		}
 	}
 
 	public void SplatInk(Vector2 texcoord, Texture2D splatTex)
 	{
-		Debug.Log("splat");
+		//Debug.Log("splat");
 		if (!isEnable)
 		{
 			return;
@@ -73,6 +77,15 @@ public class Splat : MonoBehaviour
 			{
 				x = o_x + i;
 				y = o_y + j;
+				if (x >= textureWidth)
+				{
+					x = textureWidth;
+				}
+				if (y >= textureHeight)
+				{
+					y = textureHeight;
+				}
+				Debug.Log(x + "," + y);
 				existColor = _inkTexture.GetPixel(x, y);
 				inkColor = splatTex.GetPixel(i, j);
 				finalColor = Color.Lerp(existColor, inkColor, inkColor.a);

@@ -47,7 +47,7 @@
 			{
 				fixed3 color;
 				fixed4 mainColor = tex2D(_MainTex, i.uv_main);
-				fixed4 splatColor = tex2D(_InkTex, i.uv_ink);
+				fixed4 splatColor = tex2D(_InkTex, i.uv_main);
 				color = lerp(mainColor, splatColor, splatColor.a);
 				return fixed4(color, mainColor.a + splatColor.a);
 			}
