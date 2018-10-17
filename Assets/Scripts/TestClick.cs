@@ -6,6 +6,8 @@ public class TestClick : MonoBehaviour
 {  
     [SerializeField]
     private Texture2D splatTexture;
+    [SerializeField]
+    private Color splatColor;
 
     private void Update()
     {
@@ -20,7 +22,7 @@ public class TestClick : MonoBehaviour
                     if (s != null)
                     {
                         //Debug.Log(hitInfo.textureCoord);
-                        s.SplatInk(hitInfo.textureCoord, splatTexture);
+                        s.SplatInk(hitInfo.textureCoord, splatTexture, splatColor);
                     }
                 }
             }

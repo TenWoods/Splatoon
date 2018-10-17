@@ -57,7 +57,7 @@ public class Splat : MonoBehaviour
 		}
 	}
 
-	public void SplatInk(Vector2 texcoord, Texture2D splatTex)
+	public void SplatInk(Vector2 texcoord, Texture2D splatTex, Color splatColor)
 	{
 		//Debug.Log("splat");
 		if (!isEnable)
@@ -77,17 +77,14 @@ public class Splat : MonoBehaviour
 			{
 				x = o_x + i;
 				y = o_y + j;
-				if (x >= textureWidth)
+				if (x >= textureWidth || y >= textureHeight || x < 0 || y <= 0)
 				{
-					x = textureWidth;
+					continue;
 				}
-				if (y >= textureHeight)
-				{
-					y = textureHeight;
-				}
-				Debug.Log(x + "," + y);
+				//Debug.Log(x + "," + y);
 				existColor = _inkTexture.GetPixel(x, y);
-				inkColor = splatTex.GetPixel(i, j);
+				inkColor = splatColor;
+				inkColor.a = splatTex.GetPixel(i, j).a;
 				finalColor = Color.Lerp(existColor, inkColor, inkColor.a);
 				finalColor.a = existColor.a + inkColor.a;
 				_inkTexture.SetPixel(x, y, finalColor);
